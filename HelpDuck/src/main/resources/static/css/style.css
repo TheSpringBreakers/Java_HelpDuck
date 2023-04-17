@@ -1,0 +1,137 @@
+@charset "ISO-8859-1";
+ .navbar-collapse {
+	justify-content: flex-end;
+}
+.dropdown-menu[data-bs-popper] {
+	left: -5rem;
+}
+body {
+	background-image: url("/images/toystory.jpeg");
+}
+a {
+	text-decoration: none;
+	color: black;
+}
+.header-pic {
+	width:2.25rem;
+	margin-right: .5rem;
+}
+.navbar-brand {
+	font-family:'Coiny', cursive;
+	font-size: 28px;
+}
+.dropdown-item {
+	font-family: 'Sono', sans-serif;
+}
+main {
+	margin: 15px 15px;
+	font-family: 'Sono', sans-serif;
+}
+.welcome {
+	font-family: 'Shadows Into Light', cursive;
+	font-size:80px;
+	font-weight:bold;
+}
+#background-video {
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: -1;
+}
+@media (max-width: 750px) {
+    #background-video { display: none; }
+    body {
+      background: url("/images/toystory.jpeg") no-repeat;
+      background-size: cover;
+    }
+}
+.get-started {
+	margin-top: -40px;
+	display:flex;
+	flex-direction: column;
+	align-items:center;
+}
+.home-btns {
+	margin-top:-60px;
+	width: 55%;
+	display:flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.button-52 {
+  font-size: 20px;
+  font-weight: 200;
+  letter-spacing: 1px;
+  padding: 13px 20px 13px;
+  outline: 0;
+  border: 1px solid black;
+  cursor: pointer;
+  position: relative;
+  background-color: rgba(0, 0, 0, 0);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.button-52:after {
+  content: "";
+  background-color: #ffe54c !important;
+  width: 100%;
+  z-index: -1;
+  position: absolute;
+  height: 100%;
+  top: 7px;
+  left: 7px;
+  transition: 0.2s;
+}
+
+.button-52:hover:after {
+  top: 0px;
+  left: 0px;
+}
+
+@media (min-width: 768px) {
+  .button-52 {
+    padding: 13px 50px 13px;
+  }
+}
+.logReg-form {
+	background-color: #eee0cb;
+	border-radius: 20px;
+	margin: 20px 20px;
+	padding: 20px 30px;
+}
+.form {
+	background-color: #eee0cb;
+	border-radius: 20px;
+	margin: 20px 20px;
+	padding: 20px 30px;
+}
+.main-container {
+	display:flex;
+	flex-direction: column;
+	align-items:center;
+}
+.card {
+	border-radius:15px;
+}
+.card-container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+.title {
+	font-family: 'Shadows Into Light', cursive;
+	font-size:60px;
+	font-weight:bold;
+}
+i {
+	border: none;
+}

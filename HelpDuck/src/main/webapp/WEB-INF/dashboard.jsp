@@ -39,6 +39,7 @@
 					<li><a class="dropdown-item" href="/dashboard">Dashboard</a></li>
 				    <li><a class="dropdown-item" href="/ticket/add">Ask For Help</a></li>
 				    <li><a class="dropdown-item" href="/resolved">Resolved Tickets</a></li>
+				    <li><a class="dropdown-item" href="/timer">Timer</a></li>
 				    <li><a class="dropdown-item" href="/logout">Logout</a></li>
 		          </ul>
 		        </li>
@@ -56,7 +57,7 @@
 	    	<div class="card-container row row-cols-1 row-cols-md-4 g-4">
 				<c:forEach items="${allTickets}" var="t">
 					<c:if test="${ t.resolved == false }">
-						<div class="card" style="width: 18rem">
+						<div class="post-it" style="width: 18rem">
 							<div class="card-body">
 								<h5 class="card-title">
 									<span><a href="/ticket/${t.id}/view">${t.title}</a></span>

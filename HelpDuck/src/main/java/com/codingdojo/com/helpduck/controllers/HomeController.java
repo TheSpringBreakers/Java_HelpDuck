@@ -233,4 +233,13 @@ public class HomeController {
 		return "redirect:/dashboard";
 	}
 	
+	@GetMapping("/timer")
+	public String timer(HttpSession session) {
+		if(session.getAttribute("user_id") == null) {
+			return "redirect:/";
+		} else {
+	        return "timer.jsp";
+		}
+	}
+	
 }

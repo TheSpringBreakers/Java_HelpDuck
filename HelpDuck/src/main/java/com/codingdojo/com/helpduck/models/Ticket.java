@@ -31,7 +31,7 @@ public class Ticket {
 	private Long id;
 	
 	@NotBlank(message="Title is required!")
-    @Size(min=3, max=30, message="Title must be between 2 and 30 characters")
+    @Size(min=3, max=100, message="Title must be between 2 and 100 characters")
 	private String title;
 	
 	@NotBlank(message="Description is required!")
@@ -43,6 +43,8 @@ public class Ticket {
 	
 	@NotNull
 	private Boolean resolved = false;
+	
+	private String solution;
 	
 	@Column(updatable=false)
 	@DateTimeFormat(pattern = "yyy-MM-DD HH:mm:ss")
@@ -60,12 +62,13 @@ public class Ticket {
 	private User user;
 	
 	@ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
+	@JoinTable(
         name = "likes", 
         joinColumns = @JoinColumn(name = "ticket_id"), 
         inverseJoinColumns = @JoinColumn(name = "user_id")
     )
-	 private List<User> likedUsers;  
+	private List<User> likedUsers;
+	
 	
 	public Ticket() {}
 	
@@ -122,6 +125,14 @@ public class Ticket {
 	public void setResolved(Boolean resolved) {
 		this.resolved = resolved;
 	}
+	
+	public String getSolution() {
+		return solution;
+	}
+
+	public void setSolution(String solution) {
+		this.solution = solution;
+	}
 
 	public Date getCreatedAt() {
 		return createdAt;
@@ -154,5 +165,7 @@ public class Ticket {
 	public void setLikedUsers(List<User> likedUsers) {
 		this.likedUsers = likedUsers;
 	}
+	
+	
 	
 }

@@ -45,36 +45,48 @@
 		  </div>
 		</nav>
 	</header>
-    <main>
+    <main class="m-2 w-100 d-flex flex-column align-items-center">
+    	
         <video id="background-video" autoplay loop muted poster="/images/toystory.jpeg">
 			<source src="/images/giphy.mp4" type="video/mp4">
 		</video>
-		<div class="main-container">
-			<div class="title-container">
-				<h1 class="title">${ theTicket.title }</h1>
-				<h2>asked by ${ theTicket.user.name }</h2>
-			</div>
-	    	<br>
-	    	<h3>${ theTicket.type }</h3>
-	    	<br>
-	    	<p>${ theTicket.description }</p>
-	    	<br>
-	    	<c:if test="${ theTicket.resolved == true }">
-	    		<p>Solution: ${ theTicket.solution }</p>
-	    	</c:if>
-	    	<p><fmt:formatDate type = "both" dateStyle = "short" timeStyle = "short" value = "${theTicket.createdAt}" /></p>
-	    	<p>Friends that need help with this as well:</p>
-	    	<c:forEach items="${theTicket.likedUsers}" var="u">
-	    		<p>${ u.name }</p>
-	    	</c:forEach>
-	    	<c:if test="${ user_id == theTicket.user.id }">
-	    		<div class="d-flex row justify-content-evenly w-75">
-	    			<a href="/ticket/${ theTicket.id }/solution/add" class="button-52 w-25">Resolved?</a>
-			    	<button onclick="window.location.href = '/ticket/${ theTicket.id }/edit';" class="button-52 w-25" role="button">Edit</button>
-			    	<button onclick="window.location.href = '/ticket/${ theTicket.id }/delete';" class="button-52 w-25" role="button">Delete</button>
-	    		</div>
-		    </c:if>
-		</div>
+		<h1 class="title">Solution</h1>
+		<form:form action="/ticket/${ editSolutionForm.id }/solution/save" method="post" modelAttribute="editSolutionForm" class="d-flex flex-column w-50 form">
+			<input type="hidden" name="_method" value="put">  
+
+           <section>
+    			<form:input type="hidden" path="title" />
+    		</section>
+    		
+    		<section>
+    			<form:input type="hidden" path="type" />
+    		</section>
+    		<section>
+    			<form:input type="hidden" path="description" />
+    		</section> 
+                
+            <!-- Validation Error -->
+            <form:errors path="solution" class="text-warning"/>
+                <!-- Attribute Information -->
+                <div class="d-flex flex-row justify-content-between my-2">
+                    <label for="solution">Solution:</label>
+                    <form:textarea path="solution" class="w-75" ></form:textarea>
+                </div>
+                
+			<section>
+    			<form:input type="hidden" path="resolved" value="true" />
+    		</section>  
+    		<section>
+	    			<form:input type="hidden" path="likedUsers"/>
+	    		</section>
+    		<section>
+    			<form:input type="hidden" path="user" />
+    		</section> 
+            <div class="d-flex row justify-content-end">
+            	<a href="/dashboard" class="button-52 w-25">Cancel</a>
+                <button class="button-52 w-25">Submit</button>
+            </div>
+        </form:form>
     </main>
     <footer>
     

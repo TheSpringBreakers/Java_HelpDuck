@@ -16,6 +16,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Coiny&family=Shadows+Into+Light&family=Sono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/webjars/font-awesome/css/font-awesome.min.css">
+
 <!-- For any Bootstrap that uses JS -->
 <script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
 <meta charset="UTF-8">
@@ -50,30 +52,47 @@
 			<source src="/images/giphy.mp4" type="video/mp4">
 		</video>
 		<div class="main-container">
-			<div class="title-container">
-				<h1 class="title">${ theTicket.title }</h1>
-				<h2>asked by ${ theTicket.user.name }</h2>
+			<h1 class="title">Resolved Tickets</h1>
+	    	<div class="card-container row row-cols-1 row-cols-md-4 g-4">
+				<c:forEach items="${allTickets}" var="t">
+					<c:if test="${ t.resolved == true }">
+						<div class="card" style="width: 18rem">
+							<div class="card-body">
+								<h5 class="card-title">
+									<span><a href="/ticket/${t.id}/view">${t.title}</a></span>
+								</h5>
+								<h6 class="card-subtitle mb-2 text-muted">
+									${t.user.name}
+								</h6>
+								<p class="card-text">${t.type}</p>
+								<p class="card-text">${t.description}</p>
+								<p class="card-text"><fmt:formatDate type = "both" dateStyle = "short" timeStyle = "short" value = "${t.createdAt}" /></p>
+								<c:if test="${ t.resolved }">
+									<p>RESOLVED :)</p>
+								</c:if>
+								<div>
+									<c:if test="${ user_id == t.user.id }">
+										<a href="/ticket/${t.id}/edit" class="card-link">Edit</a>
+										<a href="/ticket/${t.id}/delete" class="card-link">Delete</a>
+									</c:if>
+									<c:if test="${ user_id != t.user.id }">
+										<c:if test="${ t.likedUsers.contains(theUser) == false }">
+											<form action="/ticket/bookmark/${ t.id }" method="post">
+												<section>
+											    	<input type="hidden" name="userId" value="${ user_id }" />
+											    </section>
+											    <button>
+											    	<i class="fa-solid fa-bookmark" style="color: #7c93ae;">bookmark</i>
+											    </button>
+											</form>
+										</c:if>
+									</c:if>
+								</div>
+							</div>
+						</div>
+					</c:if>
+				</c:forEach>
 			</div>
-	    	<br>
-	    	<h3>${ theTicket.type }</h3>
-	    	<br>
-	    	<p>${ theTicket.description }</p>
-	    	<br>
-	    	<c:if test="${ theTicket.resolved == true }">
-	    		<p>Solution: ${ theTicket.solution }</p>
-	    	</c:if>
-	    	<p><fmt:formatDate type = "both" dateStyle = "short" timeStyle = "short" value = "${theTicket.createdAt}" /></p>
-	    	<p>Friends that need help with this as well:</p>
-	    	<c:forEach items="${theTicket.likedUsers}" var="u">
-	    		<p>${ u.name }</p>
-	    	</c:forEach>
-	    	<c:if test="${ user_id == theTicket.user.id }">
-	    		<div class="d-flex row justify-content-evenly w-75">
-	    			<a href="/ticket/${ theTicket.id }/solution/add" class="button-52 w-25">Resolved?</a>
-			    	<button onclick="window.location.href = '/ticket/${ theTicket.id }/edit';" class="button-52 w-25" role="button">Edit</button>
-			    	<button onclick="window.location.href = '/ticket/${ theTicket.id }/delete';" class="button-52 w-25" role="button">Delete</button>
-	    		</div>
-		    </c:if>
 		</div>
     </main>
     <footer>

@@ -52,14 +52,29 @@ public class TicketServ {
 //	======
 //	LIKE
 //	======
-	 public void likeTicket(Long ticketId, Long userId) {
+//	PUTMAP
+	 public Ticket likeTicket(Long ticketId, Long userId) {
 		 User user = userServ.getUser(userId);
 		 
 		 Ticket ticket=this.getOne(ticketId);
-		 
-		 ticket.getLikedUsers().add(user);
-		 
-		 ticketRepo.save(ticket);
+		 System.out.println(user.getName());
+		 System.out.println(ticket.getTitle());
+		 if(!ticket.getLikedUsers().contains(user)) {
+			 ticket.getLikedUsers().add(user);	
+			 System.out.println("SUCCESS");
+			 return ticketRepo.save(ticket);
+		 } else {
+			 System.out.println("ticket service: return null");
+			 return null;
+		 }
+	 }
+	 
+//	 POSTMAP	 
+	 public Ticket bookmark(Long ticketId, Long userId) {
+		 Ticket thisTicket = getOne(ticketId);
+		 User thisUser = userServ.getUser(userId);
+		 thisTicket.getLikedUsers().add(thisUser);
+		  return ticketRepo.save(thisTicket);
 	 }
 
 //	======
@@ -75,5 +90,6 @@ public class TicketServ {
 		 
 		 ticketRepo.save(ticket);
 	 }
+	 
 	
 }

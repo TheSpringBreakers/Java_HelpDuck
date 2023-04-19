@@ -36,6 +36,7 @@
 					<li><a class="dropdown-item" href="/home">Home</a></li>
 					<li><a class="dropdown-item" href="/dashboard">Dashboard</a></li>
 				    <li><a class="dropdown-item" href="/ticket/add">Ask For Help</a></li>
+				    <li><a class="dropdown-item" href="/resolved">Resolved Tickets</a></li>
 				    <li><a class="dropdown-item" href="/logout">Logout</a></li>
 		          </ul>
 		        </li>
@@ -49,14 +50,14 @@
 			<source src="/images/giphy.mp4" type="video/mp4">
 		</video>
 		<h1 class="title">Edit your Ticket</h1>
-		<form:form action="/ticket/${ theTicket.id }/update" method="post" modelAttribute="editTicketForm" class="d-flex flex-column w-50 form">  
+		<form:form action="/ticket/${ editTicketForm.id }/update" method="post" modelAttribute="editTicketForm" class="d-flex flex-column w-50 form">  
 			<input type="hidden" name="_method" value="put">
             <!-- Validation Error -->
             <form:errors path="title" class="text-warning"/>
                 <!-- Attribute Information -->
                 <div class="d-flex flex-row justify-content-between my-2">
                     <label for="title">Title:</label>
-                    <input type="text" name="title" value="${theTicket.title}" class="w-75">
+                    <form:input type="text" path="title" class="w-75" />
                 </div>
 
             <!-- Validation Error -->
@@ -64,14 +65,13 @@
                 <!-- Attribute Information -->
                 <div class="d-flex flex-row justify-content-between my-2">
                     <label for="type">Type:</label>
-                    <select name="type">
-						<option value="${ theTicket.type }">${ theTicket.type }</option>
-						<option value="C#">C#</option>
-						<option value="CSS/HTML">CSS/HTML</option>
-						<option value="Java">Java</option>
-						<option value="JavaScript">JavaScript</option>
-						<option value="Other">Other</option>
-					</select>
+                    <form:select path="type">
+						<form:option value="C#">C#</form:option>
+						<form:option value="CSS/HTML">CSS/HTML</form:option>
+						<form:option value="Java">Java</form:option>
+						<form:option value="JavaScript">JavaScript</form:option>
+						<form:option value="Other">Other</form:option>
+					</form:select>
                 </div>
                 
             <!-- Validation Error -->
@@ -79,16 +79,19 @@
                 <!-- Attribute Information -->
                 <div class="d-flex flex-row justify-content-between my-2">
                     <label for="description">Description:</label>
-                    <textarea name="description" class="w-75" >${ theTicket.description }</textarea>
+                    <form:textarea path="description" class="w-75" ></form:textarea>
                 </div>
-			<section>
-    			<input type="hidden" name="user" value="${ user_id }" />
-    		</section>  
-            <div class="d-flex row justify-content-end">
-            	<button onclick="window.location.href = '/ticket/${ theTicket.id }/delete';" class="button-52 w-25" role="button">Delete</button>
-            	<button onclick="window.location.href = '/dashboard';" class="button-52 w-25" role="button">Cancel</button>
-                <button class="button-52 w-25">Submit</button>
-            </div>
+                <section>
+	    			<form:input type="hidden" path="likedUsers"/>
+	    		</section>
+				<section>
+	    			<form:input type="hidden" path="user"/>
+	    		</section>
+	            <div class="d-flex row justify-content-end">
+	            	<button onclick="window.location.href = '/ticket/${ theTicket.id }/delete';" class="button-52 w-25" role="button">Delete</button>
+	            	<a href="/dashboard" class="button-52 w-25">Cancel</a>
+	                <button class="button-52 w-25">Submit</button>
+	            </div>
         </form:form>
     </main>
     <footer>

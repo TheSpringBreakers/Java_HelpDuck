@@ -18,6 +18,9 @@ public class UserServ {
 	@Autowired
 	private UserRepo userRepo;
 	
+//	@Autowired
+//	private TicketServ ticketServ;
+	
 	// ==========================
     //        REGISTRATION
     // ==========================
@@ -80,4 +83,15 @@ public class UserServ {
 	public void deleteOne(Long id) {
 		userRepo.deleteById(id);
 	}
+	
+    // ==========================
+    //        BOOKMARK
+    // ==========================
+	
+//	 public User bookmark(Long ticketId, Long userId) {
+//		 Ticket thisTicket = ticketServ.getOne(ticketId);
+//		 User thisUser = getUser(userId);
+//		 thisUser.getLikedTickets().add(thisTicket);
+//		  return userRepo.save(thisUser);
+//	 }
 }

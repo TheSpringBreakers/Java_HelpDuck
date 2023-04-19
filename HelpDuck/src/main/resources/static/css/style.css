@@ -3,7 +3,7 @@
 	justify-content: flex-end;
 }
 .dropdown-menu[data-bs-popper] {
-	left: -5rem;
+	left: -7rem;
 }
 body {
 	background-image: url("/images/toystory.jpeg");
@@ -132,6 +132,18 @@ main {
 	font-size:60px;
 	font-weight:bold;
 }
+.subtitle {
+	font-family: 'Shadows Into Light', cursive;
+	font-size: 20px;
+	font-weight:bold;
+}
 i {
 	border: none;
+}
+.title-container {
+	width: 60%;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-evenly;
 }

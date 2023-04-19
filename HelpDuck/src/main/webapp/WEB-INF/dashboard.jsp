@@ -38,6 +38,7 @@
 					<li><a class="dropdown-item" href="/home">Home</a></li>
 					<li><a class="dropdown-item" href="/dashboard">Dashboard</a></li>
 				    <li><a class="dropdown-item" href="/ticket/add">Ask For Help</a></li>
+				    <li><a class="dropdown-item" href="/resolved">Resolved Tickets</a></li>
 				    <li><a class="dropdown-item" href="/logout">Logout</a></li>
 		          </ul>
 		        </li>
@@ -54,38 +55,42 @@
 			<h1 class="title">Browse Help Tickets</h1>
 	    	<div class="card-container row row-cols-1 row-cols-md-4 g-4">
 				<c:forEach items="${allTickets}" var="t">
-					<div class="card" style="width: 18rem">
-						<div class="card-body">
-							<h5 class="card-title">
-								<span><a href="/ticket/${t.id}/view">${t.title}</a></span>
-							</h5>
-							<h6 class="card-subtitle mb-2 text-muted">
-								${t.user.name}
-							</h6>
-							<p class="card-text">${t.type}</p>
-							<p class="card-text">${t.description}</p>
-							<p class="card-text"><fmt:formatDate type = "both" dateStyle = "short" timeStyle = "short" value = "${t.createdAt}" /></p>
-							<c:if test="${ t.resolved }">
-								<p>RESOLVED :)</p>
-							</c:if>
-							<div>
-								<c:if test="${ user_id == t.user.id }">
-									<a href="/ticket/${t.id}/edit" class="card-link">Edit</a>
-									<a href="/ticket/${t.id}/delete" class="card-link">Delete</a>
+					<c:if test="${ t.resolved == false }">
+						<div class="card" style="width: 18rem">
+							<div class="card-body">
+								<h5 class="card-title">
+									<span><a href="/ticket/${t.id}/view">${t.title}</a></span>
+								</h5>
+								<h6 class="card-subtitle mb-2 text-muted">
+									${t.user.name}
+								</h6>
+								<p class="card-text">${t.type}</p>
+								<p class="card-text"><fmt:formatDate type = "both" dateStyle = "short" timeStyle = "short" value = "${t.createdAt}" /></p>
+								<c:if test="${ t.resolved }">
+									<p>RESOLVED :)</p>
 								</c:if>
-								<c:if test="${ t.likedUsers.contains(theUser) == false }">
-									<form action="/ticket/bookmark/${ t.id }" method="post">
-										<section>
-									    	<input type="hidden" name="userId" value="${ user_id }" />
-									    </section>
-									    <button>
-									    	<i class="fa-solid fa-bookmark" style="color: #7c93ae;">bookmark</i>
-									    </button>
-									</form>
-								</c:if>
+								<div>
+									<c:if test="${ user_id == t.user.id }">
+										<a href="/ticket/${t.id}/edit" class="card-link">Edit</a>
+										<a href="/ticket/${t.id}/delete" class="card-link">Delete</a>
+									</c:if>
+									<c:if test="${ user_id != t.user.id }">
+										<c:if test="${ t.likedUsers.contains(theUser) == false }">
+											<form action="/ticket/bookmark/${ t.id }" method="post">
+												<input type="hidden" name="_method" value="put">
+												<section>
+											    	<input type="hidden" name="userId" value="${ user_id }" />
+											    </section>
+											    <button>
+											    	<i class="fa-solid fa-bookmark" style="color: #7c93ae;">bookmark</i>
+											    </button>
+											</form>
+										</c:if>
+									</c:if>
+								</div>
 							</div>
 						</div>
-					</div>
+					</c:if>
 				</c:forEach>
 			</div>
 		</div>

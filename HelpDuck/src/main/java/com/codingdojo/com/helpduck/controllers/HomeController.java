@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.codingdojo.com.helpduck.models.LoginUser;
 import com.codingdojo.com.helpduck.models.Ticket;
@@ -138,11 +137,11 @@ public class HomeController {
 	}
 	
 	@GetMapping("ticket/{id}/edit")
-	public String editTicket(HttpSession session, @PathVariable("id") Long id, @ModelAttribute("editTicketForm") Ticket ticket, Model model) {
+	public String editTicket(HttpSession session, @PathVariable("id") Long id, Model model) {
 		if(session.getAttribute("user_id") == null) {
 			return "redirect:/";
 		} else {
-		model.addAttribute("theTicket", ticketServ.getOne(id));
+		model.addAttribute("editTicketForm", ticketServ.getOne(id));
 		return "editTicket.jsp";
 		}
 	}
@@ -163,31 +162,74 @@ public class HomeController {
 		return "redirect:/dashboard";
 	}
 	
-	@PostMapping("/ticket/bookmark/{id}")
-	public String bookmarkTicket(@PathVariable("id") Long ticketId, @RequestParam("userId") Long userId) {
-		
-		System.out.println(ticketId);
+	@GetMapping("/resolved")
+	public String resolved(HttpSession session, @ModelAttribute("ticket") Ticket ticket, Model model) {
+		if(session.getAttribute("user_id") == null) {
+			return "redirect:/";
+		} else {
+			model.addAttribute("theUser", userServ.getUser((Long)session.getAttribute("user_id")));
+			model.addAttribute("allTickets",ticketServ.getAll());
+	        return "resolved.jsp";
+		}
+	}
+	
+	@GetMapping("ticket/{id}/solution/add")
+	public String addSolution(HttpSession session, @PathVariable("id") Long id, Model model) {
+		if(session.getAttribute("user_id") == null) {
+			return "redirect:/";
+		} else {
+		model.addAttribute("editSolutionForm", ticketServ.getOne(id));
+		return "addSolution.jsp";
+		}
+	}
+	@PutMapping("ticket/{id}/solution/save")
+	public String saveSolution(@PathVariable("id") Long id, @Valid @ModelAttribute("editSolutionForm") Ticket editTicket, BindingResult result, Model model) {
+		if(result.hasErrors()) {
+			model.addAttribute("theTicket", ticketServ.getOne(id));
+			return "addSolution.jsp";
+		} else {
+			ticketServ.updateOne(editTicket);
+			return "redirect:/resolved";
+		}
+	}
+
+	
+//	@PostMapping("/ticket/bookmark/{id}")
+//	public String bookmarkTicket(@PathVariable("id") Long ticketId, @RequestParam("userId") Long userId) {
+//		
+////		System.out.println(ticketId);
+////		System.out.println(userId);
+////		retrieve a ticket obj using the ticket id
+//		Ticket ticket = ticketServ.getOne(ticketId);
+//		
+////		retrieve the user obj using the user id
+//		User user = userServ.getUser(userId);
+//		
+////		printing to see the liked users of the ticket currently
+//		List<User> currentLikedUsers = ticket.getLikedUsers();
+////		System.out.println(currentLikedUsers);
+//		
+////		add current signed in user to list of liked users of ticket
+//		currentLikedUsers.add(user);
+////		System.out.println(currentLikedUsers);
+//		
+////		set the ticket liked users to be the new list
+//		ticket.setLikedUsers(currentLikedUsers);
+//		
+////		send to service and update database
+//		ticketServ.bookmark(ticketId, userId);
+////		userServ.bookmark(ticketId, userId);
+//		
+//		return "redirect:/dashboard";
+//	}
+	
+	@PutMapping("/ticket/bookmark/{id}")
+	public String bookmarkTicket(@PathVariable("id") Long ticketId, HttpSession session) {
+		Long userId = (Long)session.getAttribute("user_id");
+		System.out.println("TRIGGERED BOOKMARK");
 		System.out.println(userId);
-//		retrieve a ticket obj using the ticket id
-		Ticket ticket = ticketServ.getOne(ticketId);
-		
-//		retrieve the user obj using the user id
-		User user = userServ.getUser(userId);
-		
-//		printing to see the liked users of the ticket currently
-		List<User> currentLikedUsers = ticket.getLikedUsers();
-		System.out.println(currentLikedUsers);
-		
-//		add current signed in user to list of liked users of ticket
-		currentLikedUsers.add(user);
-		System.out.println(currentLikedUsers);
-		
-//		set the ticket liked users to be the new list
-		ticket.setLikedUsers(currentLikedUsers);
-		
-//		send to service and update database
-		ticketServ.updateOne(ticket);
-		
+		System.out.println(ticketId);
+		ticketServ.likeTicket(ticketId, userId);
 		return "redirect:/dashboard";
 	}
 	

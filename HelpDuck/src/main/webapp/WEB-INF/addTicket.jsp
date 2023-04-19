@@ -36,6 +36,7 @@
 					<li><a class="dropdown-item" href="/home">Home</a></li>
 					<li><a class="dropdown-item" href="/dashboard">Dashboard</a></li>
 				    <li><a class="dropdown-item" href="/ticket/add">Ask For Help</a></li>
+				    <li><a class="dropdown-item" href="/resolved">Resolved Tickets</a></li>
 				    <li><a class="dropdown-item" href="/logout">Logout</a></li>
 		          </ul>
 		        </li>

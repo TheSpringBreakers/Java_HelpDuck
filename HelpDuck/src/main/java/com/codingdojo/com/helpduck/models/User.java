@@ -71,7 +71,7 @@ public class User {
 	        joinColumns = @JoinColumn(name = "user_id"), 
 	        inverseJoinColumns = @JoinColumn(name = "ticket_id")
 	    )
-	 private List<Ticket> likedTickets; 
+	 private List<Ticket> likedTickets;
 	
 	
 	public User() {}
@@ -159,5 +159,6 @@ public class User {
 	public void setLikedTickets(List<Ticket> likedTickets) {
 		this.likedTickets = likedTickets;
 	}
+	
     
 }

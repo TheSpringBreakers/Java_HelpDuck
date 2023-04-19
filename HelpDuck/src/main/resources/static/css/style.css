@@ -425,12 +425,12 @@ h1 {
   border-radius: 50%;
   border: none;
   color: white;
-  background: #8208e6;
+  background: #768EAA;
   cursor: pointer;
 }
 
 .timer__btn--start {
-  background: #00b84c;
+  background: #F9D41F;
 }
 
 .timer__btn--stop {
@@ -444,4 +444,13 @@ h1 {
 	display:flex;
 	flex-direction:column;
 	align-items:center;
+}
+.icon-container {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+.bookmark-btn {
+	border: none;
+	background: transparent;
 }

@@ -16,7 +16,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Coiny&family=Shadows+Into+Light&family=Sono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/webjars/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 
 <!-- For any Bootstrap that uses JS -->
 <script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
@@ -72,8 +74,10 @@
 								</c:if>
 								<div>
 									<c:if test="${ user_id == t.user.id }">
-										<a href="/ticket/${t.id}/edit" class="card-link">Edit</a>
-										<a href="/ticket/${t.id}/delete" class="card-link">Delete</a>
+										<div class="icon-container">
+											<a href="/ticket/${t.id}/edit" class="card-link"><span class="material-symbols-outlined">edit_note</span></a>
+											<a href="/ticket/${t.id}/delete" class="card-link"><span class="material-symbols-outlined">delete_forever</span></a>
+										</div>
 									</c:if>
 									<c:if test="${ user_id != t.user.id }">
 										<c:if test="${ t.likedUsers.contains(theUser) == false }">
@@ -82,8 +86,8 @@
 												<section>
 											    	<input type="hidden" name="userId" value="${ user_id }" />
 											    </section>
-											    <button>
-											    	<i class="fa-solid fa-bookmark" style="color: #7c93ae;">bookmark</i>
+											    <button class="bookmark-btn">
+											    	<span class="material-symbols-outlined">bookmark</span>
 											    </button>
 											</form>
 										</c:if>

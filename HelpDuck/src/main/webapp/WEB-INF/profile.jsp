@@ -19,6 +19,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 
 <!-- For any Bootstrap that uses JS -->
 <script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
@@ -56,10 +57,11 @@
 			<source src="/images/giphy.mp4" type="video/mp4">
 		</video>
 		<div class="main-container">
-			<h1 class="title">Browse Help Tickets</h1>
+			<h1 class="title">${ theUser.name }'s Profile</h1>
+			<h3 class="my-tickets">My Tickets:</h3>
 	    	<div class="card-container row row-cols-1 row-cols-md-4 g-4">
 				<c:forEach items="${allTickets}" var="t">
-					<c:if test="${ t.resolved == false }">
+					<c:if test="${ t.user == theUser }">
 						<div class="post-it" style="width: 18rem">
 							<div class="card-body">
 								<div class="card-body-top">
@@ -74,10 +76,15 @@
 									</div>
 								</div>
 								<p class="card-text overflow">${t.description}</p>
-								<p class="card-text space"><fmt:formatDate type = "both" dateStyle = "short" timeStyle = "short" value = "${t.createdAt}" /></p>
-								<c:if test="${ t.resolved }">
-									<p>RESOLVED :)</p>
-								</c:if>
+								<div class="space">
+									<p class="card-text"><fmt:formatDate type = "both" dateStyle = "short" timeStyle = "short" value = "${t.createdAt}" /></p>
+									<c:if test="${ t.resolved }">
+										<div class="resolved">
+											<p>RESOLVED</p>
+											<span class="material-symbols-outlined check">check_circle</span>
+										</div>
+									</c:if>
+								</div>
 								<div>
 									<c:if test="${ user_id == t.user.id }">
 										<div class="wrapper">
@@ -105,6 +112,59 @@
 						</div>
 					</c:if>
 				</c:forEach>
+			</div>
+			<h3 class="my-bookmarks">My Bookmarks:</h3>
+	    	<div class="card-container row row-cols-1 row-cols-md-4 g-4">
+	    		<c:forEach items="${theUser.likedTickets}" var="t">
+		    		<div class="post-it" style="width: 18rem">
+							<div class="card-body">
+								<div class="card-body-top">
+									<h5 class="card-title title-hover">
+										<span><a href="/ticket/${t.id}/view">${t.title}</a></span>
+									</h5>
+									<div class="subtiitle-container">
+										<h6 class="card-subtitle mb-2 text-muted">
+											${t.user.name}
+										</h6>
+										<h6 class="card-subtitle mb-2 text-muted">${t.type}</h6>
+									</div>
+								</div>
+								<p class="card-text overflow">${t.description}</p>
+								<div class="space">
+									<p class="card-text"><fmt:formatDate type = "both" dateStyle = "short" timeStyle = "short" value = "${t.createdAt}" /></p>
+									<c:if test="${ t.resolved }">
+										<div class="resolved">
+											<p>RESOLVED</p>
+											<span class="material-symbols-outlined check">check_circle</span>
+										</div>
+									</c:if>
+								</div>
+								<div>
+									<c:if test="${ user_id == t.user.id }">
+										<div class="wrapper">
+											<div class="icon-container">
+												<a href="/ticket/${t.id}/edit" class="card-link"><span class="material-symbols-outlined">edit_note</span></a>
+												<a href="/ticket/${t.id}/delete" class="card-link"><span class="material-symbols-outlined">delete_forever</span></a>
+											</div>
+										</div>
+									</c:if>
+									<c:if test="${ user_id != t.user.id }">
+										<c:if test="${ t.likedUsers.contains(theUser) == false }">
+											<form action="/ticket/bookmark/${ t.id }" method="post">
+												<input type="hidden" name="_method" value="put">
+												<section>
+											    	<input type="hidden" name="userId" value="${ user_id }" />
+											    </section>
+											    <button class="bookmark-btn">
+											    	<span class="material-symbols-outlined">bookmark</span>
+											    </button>
+											</form>
+										</c:if>
+									</c:if>
+								</div>
+							</div>
+						</div>
+		    	</c:forEach>
 			</div>
 		</div>
     </main>

@@ -50,14 +50,10 @@
 			<source src="/images/giphy.mp4" type="video/mp4">
 		</video>
 		<div class="main-container">
-			<div class="title-container">
-				<h1 class="title">${ theTicket.title }</h1>
-				<h2>asked by ${ theTicket.user.name }</h2>
-			</div>
+			<h1 class="title">${ theTicket.title }</h1>
+			<h3>asked by ${ theTicket.user.name } | ${ theTicket.type }</h3>
 	    	<br>
-	    	<h3>${ theTicket.type }</h3>
-	    	<br>
-	    	<p>${ theTicket.description }</p>
+	    	<p class="description">${ theTicket.description }</p>
 	    	<br>
 	    	<c:if test="${ theTicket.resolved == true }">
 	    		<p>Solution: ${ theTicket.solution }</p>

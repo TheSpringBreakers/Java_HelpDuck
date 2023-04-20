@@ -12,6 +12,10 @@ a {
 	text-decoration: none;
 	color: black;
 }
+a:hover {
+	text-decoration: none;
+	color: black;
+}
 .header-pic {
 	width:2.25rem;
 	margin-right: .5rem;
@@ -141,11 +145,10 @@ i {
 	border: none;
 }
 .title-container {
-	width: 60%;
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	justify-content: space-evenly;
+	justify-content: space-around;
 }
 .post-it {
  	width:250px;
@@ -163,7 +166,7 @@ i {
   font-size:19px;
   -webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC);
 
-  color:#130d6b;
+  color:black;
 }
 
 .post-it li {
@@ -192,7 +195,7 @@ i {
   position:absolute;
   width:75%;
   height:20px; 
-  border-top:3px solid #130d6b;
+  border-top:3px solid black;
   border-radius: 50% ;
   bottom:0px;
   left:10%;
@@ -449,8 +452,69 @@ h1 {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
+	position: absolute;
+	bottom: 18px;
 }
 .bookmark-btn {
 	border: none;
 	background: transparent;
+	position: absolute;
+	bottom: 18px;
+}
+.card-body-top {
+	display:flex;
+	flex-direction:row;
+	align-items:center;
+	justify-content:space-between;
+	height:90px;
+}
+.title-hover:hover {
+	text-decoration:underline;
+    transition: transform 1s ease-in-out;
+}
+.overflow {
+	margin-top:-15px;
+	 display: block;
+     overflow: hidden;
+     text-overflow: ellipsis;
+     width:100%;
+     white-space: nowrap;
+     font-size:15px;
+}
+.subtiitle-container {
+	display:flex;
+	flex-direction:column;
+	align-items:flex-end;
+}
+.card-subtitle {
+	font-size:15px;
+}
+.space {
+	padding-bottom:10px;
+}
+.resolved {
+	display:flex;
+	flex-direction:row;
+	align-items:center;
+}
+.check {
+	margin-top:-15px;
+	margin-left:10px;
+	color:green;
+}
+.my-tickets {
+	margin-right: 89rem;
+	font-family: 'Shadows Into Light', cursive;
+	font-weight:bolder;
+	text-decoration:underline;
+}
+.my-bookmarks {
+	margin-right: 86rem;
+	font-family: 'Shadows Into Light', cursive;
+	font-weight:bolder;
+	text-decoration:underline;
+}
+.description {
+	width:60%;
+	text-align:center;
 }

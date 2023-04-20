@@ -39,6 +39,7 @@
 		          </a>
 		          <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
 					<li><a class="dropdown-item" href="/home">Home</a></li>
+					<li><a class="dropdown-item" href="/profile">Profile</a></li>
 					<li><a class="dropdown-item" href="/dashboard">Dashboard</a></li>
 				    <li><a class="dropdown-item" href="/ticket/add">Ask For Help</a></li>
 				    <li><a class="dropdown-item" href="/resolved">Resolved Tickets</a></li>
@@ -62,27 +63,40 @@
 					<c:if test="${ t.resolved == true }">
 						<div class="post-it" style="width: 18rem">
 							<div class="card-body">
-								<h5 class="card-title">
-									<span><a href="/ticket/${t.id}/view">${t.title}</a></span>
-								</h5>
-								<h6 class="card-subtitle mb-2 text-muted">
-									${t.user.name}
-								</h6>
-								<p class="card-text">${t.type}</p>
-								<p class="card-text"><fmt:formatDate type = "both" dateStyle = "short" timeStyle = "short" value = "${t.createdAt}" /></p>
-								<c:if test="${ t.resolved }">
-									<p>RESOLVED :)</p>
-								</c:if>
+								<div class="card-body-top">
+									<h5 class="card-title title-hover">
+										<span><a href="/ticket/${t.id}/view">${t.title}</a></span>
+									</h5>
+									<div class="subtitle-container">
+										<h6 class="card-subtitle mb-2 text-muted">
+											${t.user.name}
+										</h6>
+										<h6 class="card-subtitle mb-2 text-muted">${t.type}</h6>
+									</div>
+								</div>
+								<p class="card-text overflow">${t.description}</p>
+								<div class="space">
+									<p class="card-text"><fmt:formatDate type = "both" dateStyle = "short" timeStyle = "short" value = "${t.createdAt}" /></p>
+									<c:if test="${ t.resolved }">
+										<div class="resolved">
+											<p>RESOLVED</p>
+											<span class="material-symbols-outlined check">check_circle</span>
+										</div>
+									</c:if>
+								</div>
 								<div>
 									<c:if test="${ user_id == t.user.id }">
-										<div class="icon-container">
-											<a href="/ticket/${t.id}/edit" class="card-link"><span class="material-symbols-outlined">edit_note</span></a>
-											<a href="/ticket/${t.id}/delete" class="card-link"><span class="material-symbols-outlined">delete_forever</span></a>
+										<div class="wrapper">
+											<div class="icon-container">
+												<a href="/ticket/${t.id}/edit" class="card-link"><span class="material-symbols-outlined">edit_note</span></a>
+												<a href="/ticket/${t.id}/delete" class="card-link"><span class="material-symbols-outlined">delete_forever</span></a>
+											</div>
 										</div>
 									</c:if>
 									<c:if test="${ user_id != t.user.id }">
 										<c:if test="${ t.likedUsers.contains(theUser) == false }">
 											<form action="/ticket/bookmark/${ t.id }" method="post">
+												<input type="hidden" name="_method" value="put">
 												<section>
 											    	<input type="hidden" name="userId" value="${ user_id }" />
 											    </section>

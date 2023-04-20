@@ -242,4 +242,15 @@ public class HomeController {
 		}
 	}
 	
+	@GetMapping("/profile")
+	public String profile(HttpSession session, @ModelAttribute("ticket") Ticket ticket, Model model) {
+		if(session.getAttribute("user_id") == null) {
+			return "redirect:/";
+		} else {
+			model.addAttribute("theUser", userServ.getUser((Long)session.getAttribute("user_id")));
+			model.addAttribute("allTickets",ticketServ.getAll());
+	        return "profile.jsp";
+		}
+	}
+	
 }

@@ -34,6 +34,7 @@
 		          </a>
 		          <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
 					<li><a class="dropdown-item" href="/home">Home</a></li>
+					<li><a class="dropdown-item" href="/profile">Profile</a></li>
 					<li><a class="dropdown-item" href="/dashboard">Dashboard</a></li>
 				    <li><a class="dropdown-item" href="/ticket/add">Ask For Help</a></li>
 				    <li><a class="dropdown-item" href="/resolved">Resolved Tickets</a></li>
